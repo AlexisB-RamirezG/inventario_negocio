@@ -2,7 +2,7 @@ import Inventory from "./inventory.js";
 
 let bttnRegister = document.querySelector("#register"),
     bttnInquiry = document.querySelector("#inquiry"),
-    bttnInsert = document.querySelector("#insert"),
+    //bttnInsert = document.querySelector("#insert"),
     divInventory = document.querySelector("#showInventory"),
     divInquiry = document.querySelector("#showInquiry"),
     bttnDelete = document.querySelector("#delete");
@@ -15,11 +15,11 @@ bttnInquiry.addEventListener("click", () => {
     m.makeInquiry(document.querySelector("#inquiryCode").value);
 });
 
-bttnInsert.addEventListener("click", () => {
+/*bttnInsert.addEventListener("click", () => {
     let data = m.extractDataFromInputs(),
         position = document.querySelector("#position").value;
     m.insertProduct(data, position);
-});
+});*/
 
 bttnDelete.addEventListener("click", () => {
     m.deleteFromInventory(document.querySelector("#deleteCode").value);
