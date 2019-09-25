@@ -84,20 +84,29 @@ export default class Inventory {
             bPosition = 0,
             medium = 0;
 
-        while (this._getDifference(bPosition, uPosition) >= 1) {
-            medium = this._getHalf(bPosition, uPosition);
-            if (code < this._inventory[medium].code) {
-                uPosition = medium;
-            } else {
-                bPosition = medium;
+        if (this._inventory.length <= 2) {
+            for (let i = 0; i < this._inventory.length; i++) {
+                if (this._inventory[i].code == code) {
+                    return i;
+                }
+            }
+            return -1;
+        } else {
+            while (this._getDifference(bPosition, uPosition) >= 1) {
+                medium = this._getHalf(bPosition, uPosition);
+                if (code < this._inventory[medium].code) {
+                    uPosition = medium;
+                } else {
+                    bPosition = medium;
+                }
             }
             if (this._inventory[bPosition].code == code) {
                 return bPosition;
             } else if (this._inventory[uPosition].code == code) {
                 return uPosition;
             }
+            return -1;
         }
-        return -1;
     }
 
     _searchForBottomPosition(code) {
@@ -112,12 +121,11 @@ export default class Inventory {
             } else {
                 bPosition = medium;
             }
-            console.log(code, uPosition, bPosition);
         }
         if (code > this._inventory[uPosition].code) {
             return uPosition;
         } else {
-            return bPosition; {}
+            return bPosition; 
         }
     }
 
