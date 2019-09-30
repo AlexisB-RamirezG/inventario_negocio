@@ -3,6 +3,7 @@ import Product from "./product.js";
 export default class Inventory {
     constructor() {
         this._inventory = [];
+        this._productQuantity = 0;
         this._inventoryString = "";
     }
 
@@ -15,17 +16,20 @@ export default class Inventory {
     }
 
     registerProduct(product) {
-        if (this._searchForRegisteredProduct(product.code) == -1) {
+        if ((this._searchForRegisteredProduct(product.code) == -1) && (this._productQuantity < 20)) {
             let newProduct = new Product(product);
-            if (this._inventory.length == 0) {
+            if (this._productQuantity == 0) {
                 this._inventory[0] = newProduct;
+                this._productQuantity++;
             } else {
                 let position = this._searchForBottomPosition(product.code);
-                for (let i = this._inventory.length - 1; i > position - 1; i--) {
+                for (let i = this._productQuantity  - 1; i > position - 1; i--) {
                     this._inventory[i + 1] = this._inventory[i];
                 }
                 this._inventory[position + 1] = newProduct;
+                this._productQuantity++;
             }
+            console.log(this.inventory);
         }
     }
 
@@ -57,12 +61,12 @@ export default class Inventory {
     deleteProduct(code) {
         let index = this._searchForRegisteredProduct(code);
         if (index >= 0) {
-            for (let i = index + 1; i <= this._inventory.length; i++) {
+            for (let i = index + 1; i <= this._productQuantity; i++) {
                 this._inventory[i - 1] = this._inventory[i]
             }
         }
         let newInventory = [];
-        for (let i = 0; i <= this._inventory.length - 2; i++) {
+        for (let i = 0; i <= this._productQuantity  - 2; i++) {
             newInventory[i] = this._inventory[i];
         }
         this._inventory = newInventory;
@@ -74,18 +78,18 @@ export default class Inventory {
 
     _inventoryToString() {
         this._inventoryString = "";
-        for (let i = 0; i < this._inventory.length; i++) {
+        for (let i = 0; i < this._productQuantity ; i++) {
             this._inventoryString += this._inventory[i].toString() + "<br>";
         }
     }
 
     _searchForRegisteredProduct(code) {
-        let uPosition = this._inventory.length - 1,
+        let uPosition = this._productQuantity  - 1,
             bPosition = 0,
             medium = 0;
 
-        if (this._inventory.length <= 2) {
-            for (let i = 0; i < this._inventory.length; i++) {
+        if (this._productQuantity  <= 2) {
+            for (let i = 0; i < this._productQuantity ; i++) {
                 if (this._inventory[i].code == code) {
                     return i;
                 }
@@ -110,7 +114,7 @@ export default class Inventory {
     }
 
     _searchForBottomPosition(code) {
-        let uPosition = this._inventory.length - 1,
+        let uPosition = this._productQuantity  - 1,
             bPosition = 0,
             medium = 0;
 
