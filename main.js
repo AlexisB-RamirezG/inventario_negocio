@@ -12,7 +12,7 @@ bttnRegister.addEventListener("click", () => {
 });
 
 bttnInquiry.addEventListener("click", () => {
-    m.makeInquiry(document.querySelector("#inquiryCode").value);
+    m.makeInquiry(Number(document.querySelector("#inquiryCode").value));
 });
 
 /*bttnInsert.addEventListener("click", () => {
@@ -22,7 +22,7 @@ bttnInquiry.addEventListener("click", () => {
 });*/
 
 bttnDelete.addEventListener("click", () => {
-    m.deleteFromInventory(document.querySelector("#deleteCode").value);
+    m.deleteFromInventory(Number(document.querySelector("#deleteCode").value));
 });
 
 class Main {
@@ -46,7 +46,7 @@ class Main {
 
     extractDataFromInputs() {
         let objNewProduct = {
-            code: document.querySelector("#code").value,
+            code: Number(document.querySelector("#code").value),
             name: document.querySelector("#name").value,
             price: document.querySelector("#price").value,
             quantity: document.querySelector("#quantity").value,
